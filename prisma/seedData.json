@@ -1,0 +1,34 @@
+{
+  "users": [
+    { "id": "ckus0p6qk000001sl2b7d0cbp", "name": "Alice", "email": "alice@example.com" },
+    { "id": "ckus0p6qk000002sl9ebdnunv", "name": "Bob", "email": "bob@example.com" },
+    { "id": "ckus0p6qk000003sl3r4l2bkd", "name": "Charlie", "email": "charlie@example.com" },
+    { "id": "ckus0p6qk000004sl9xqqe7pl", "name": "David", "email": "david@example.com" },
+    { "id": "ckus0p6qk000005slc5mkg72a", "name": "Eve", "email": "eve@example.com" },
+    { "id": "ckus0p6qk000006slbsa5dk4t", "name": "Frank", "email": "frank@example.com" },
+    { "id": "ckus0p6qk000007slcrng52bk", "name": "Grace", "email": "grace@example.com" },
+    { "id": "ckus0p6qk000008slo5e84v3g", "name": "Heidi", "email": "heidi@example.com" }
+  ],
+  "admins": [
+    { "id": "ckus0p6qk000009slnlxyislc", "name": "Admin1", "email": "admin1@example.com", "isAdmin": true },
+    { "id": "ckus0p6qk000010sl3r8d6v9o", "name": "Admin2", "email": "admin2@example.com", "isAdmin": true },
+    { "id": "ckus0p6qk000011slfsxcqyzs", "name": "Admin3", "email": "admin3@example.com", "isAdmin": true }
+  ],
+  "tickets": [
+    { "title": "Printer on fire", "description": "Help! Smoke is coming out of the printer and it's making weird noises. Please send help ASAP!", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000001sl2b7d0cbp" },
+    { "title": "Cat ate my mouse", "description": "My cat jumped on the desk and chewed through the mouse cable. Now the mouse doesn't work. Can I get a replacement?", "priority": "medium", "status": "new", "reporterId": "ckus0p6qk000002sl9ebdnunv" },
+    { "title": "Coffee spill disaster", "description": "I accidentally spilled coffee on my keyboard, and now half of the keys are sticky. Can someone bring me a new keyboard before the sticky keys start typing by themselves?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000003sl3r4l2bkd" },
+    { "title": "404 error in real life", "description": "I tried to walk to the break room, but I ended up in a hallway that doesn't exist. Please send directions!", "priority": "low", "status": "inProgress", "reporterId": "ckus0p6qk000004sl9xqqe7pl", "responderId": "ckus0p6qk000009slnlxyislc" },
+    { "title": "Stuck in the elevator", "description": "I pressed the 'Close Door' button in the elevator, and now I'm stuck between floors. Can someone reset the elevator and rescue me?", "priority": "high", "status": "resolved", "reporterId": "ckus0p6qk000005slc5mkg72a", "responderId": "ckus0p6qk000010sl3r8d6v9o" },
+    { "title": "Aliens hijacked my computer", "description": "I left my computer unattended for a minute, and when I came back, there were strange symbols on the screen. I think aliens are trying to communicate with me. Please advise!", "priority": "medium", "status": "new", "reporterId": "ckus0p6qk000006slbsa5dk4t" },
+    { "title": "The case of the missing stapler", "description": "I can't find my stapler anywhere. It was here yesterday, but now it's gone. Did it run away? Please help me solve this mystery!", "priority": "low", "status": "new", "reporterId": "ckus0p6qk000007slcrng52bk" },
+    { "title": "Keyboard shortcut gone wrong", "description": "I accidentally pressed a keyboard shortcut and now my screen is upside down. I tried shaking the monitor, but it didn't work. Can someone fix it before I get a headache?", "priority": "medium", "status": "new", "reporterId": "ckus0p6qk000008slo5e84v3g" },
+    { "title": "Computer turned into a toaster", "description": "I tried to run a simple software update, and now my computer is emitting smoke and toasting bread. I don't think that's supposed to happen. Help!", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000001sl2b7d0cbp" },
+    { "title": "Unexpected visit from the blue screen of death", "description": "I was in the middle of an important presentation when suddenly the blue screen of death appeared out of nowhere. Now my computer won't turn on. Is this the end of the world?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000002sl9ebdnunv" },
+    { "title": "Coffee emergency", "description": "I ran out of coffee filters, and now I can't brew my morning coffee. This is a code red emergency! Please send reinforcements!", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000003sl3r4l2bkd" },
+    { "title": "Mouse ran away", "description": "My mouse escaped from my desk and is now roaming freely around the office. I tried to catch it, but it's too fast. Can someone help me capture the runaway mouse?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000004sl9xqqe7pl" },
+    { "title": "Keyboard is haunted", "description": "My keyboard keeps typing by itself, and it's not even connected to the computer. I think it's haunted. Can someone exorcise the keyboard?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000005slc5mkg72a" },
+    { "title": "Can't find the 'Any' key", "description": "The computer is asking me to press the 'Any' key, but I can't find it anywhere on the keyboard. Is this a trick question?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000006slbsa5dk4t" },
+    { "title": "USB port eating my flash drive", "description": "I inserted my flash drive into the USB port, and now it's gone. Did the USB port eat it? Can someone retrieve my flash drive from the depths of the computer?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000007slcrng52bk" },
+    { "title": "Help! My computer is speaking binary", "description": "I accidentally spilled binary code on my computer, and now it's speaking binary language. I don't speak binary! Can someone translate it back to English?", "priority": "high", "status": "new", "reporterId": "ckus0p6qk000008slo5e84v3g" }
+]}

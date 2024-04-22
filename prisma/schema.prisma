@@ -11,9 +11,9 @@ datasource db {
 }
 
 enum Status {
-  open
+  new
+  inProgress
   resolved
-  wontFix
 }
 
 enum Priority {
@@ -27,11 +27,13 @@ model Ticket {
   title       String
   description String?
   priority    Priority @default(medium)
-  status      Status   @default(open)
+  status      Status   @default(new)
   reporter    User?    @relation("TicketReporter", fields: [reporterId], references: [id])
   reporterId  String?
   responder   User?    @relation("TicketResponder", fields: [responderId], references: [id])
   responderId String?
+  createdAt       DateTime @default(now()) @map(name: "created_at")
+
 
   @@map(name: "tickets")
 }
