@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useUser } from "../../../contexts/User/UserContext";
 import { useRouter } from "next/router";
+import { Alert, Button, Form, Input } from "antd";
 
 const LoginPage: React.FC = () => {
   const [username, setUserName] = useState("");
   const [pw, setPw] = useState("");
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
   const { login } = useUser();
   const router = useRouter();
   const handleUserInput = (input) => {
@@ -27,7 +28,7 @@ const LoginPage: React.FC = () => {
     console.log({ data });
     if (res.status === 200) {
       login(data.id, data.name, data.isAdmin);
-      router.push('/');
+      router.push("/");
     } else {
       setError(data.error);
     }
@@ -36,31 +37,53 @@ const LoginPage: React.FC = () => {
   return (
     <div>
       <h2>Login</h2>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          onChange={(e) => handleUserInput(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          onChange={(e) => handlePwInput(e.target.value)}
-        />
-      </div>
-      <button type="button" onClick={handleLogin}>
-        Login
-      </button>
+      {error && <Alert message={error} type="error" showIcon />}
+
+      <Form>
+        <Form.Item label="Username" required>
+          <Input
+            value={username}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item label="Password" required>
+          <Input.Password value={pw} onChange={(e) => setPw(e.target.value)} />
+        </Form.Item>
+        <Form.Item>
+          <Button type="primary" onClick={handleLogin}>Login</Button>
+        </Form.Item>
+      </Form>
     </div>
   );
 };
 
 export default LoginPage;
+
+{
+  /* <div>
+<h2>Login</h2>
+<div>
+  <label htmlFor="email">Email:</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    required
+    onChange={(e) => handleUserInput(e.target.value)}
+  />
+</div>
+<div>
+  <label htmlFor="password">Password:</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    required
+    onChange={(e) => handlePwInput(e.target.value)}
+  />
+</div>
+<button type="button" onClick={handleLogin}>
+  Login
+</button>
+</div> */
+}
