@@ -1,18 +1,21 @@
-import React from "react"
-import Layout from "../../components/Layout"
+import React, { useEffect } from "react";
+import Layout from "../../components/Layout";
 import { useUser } from "../../contexts/User/UserContext";
 import AdminHome from "../scenes/AdminHome";
 import UserHome from "../scenes/UserHome";
+import { useRouter } from "next/router";
 
 const Home: React.FC = (props) => {
-  const {isAdmin} = useUser()
+  const { isAdmin, isLoggedIn } = useUser();
+  const router = useRouter();
+  useEffect(() => {
+    !isLoggedIn && router.push("/login");
+  }, [isLoggedIn]);
   return (
     <Layout>
       <div className="page">
         <h1>Tech Support System</h1>
-        <main>
-          {isAdmin ? <AdminHome/> : <UserHome/>}
-        </main>
+        <main>{isAdmin ? <AdminHome /> : <UserHome />}</main>
       </div>
       <style jsx>{`
         .post {
@@ -29,7 +32,7 @@ const Home: React.FC = (props) => {
         }
       `}</style>
     </Layout>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
