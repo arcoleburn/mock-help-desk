@@ -1,8 +1,8 @@
 import prisma from '../../../../lib/prisma';
 
 export default async function handle(req, res) {
-  const { ticketId, title, description, priority, responderId } = req.body;
-
+  const { id: ticketId, title, description, priority, responderId } = req.body;
+  console.log('ticket id from body:', ticketId)
   try {
     const updatedTicket = await prisma.ticket.update({
       where: {
