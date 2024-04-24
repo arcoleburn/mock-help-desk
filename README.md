@@ -1,1 +1,1 @@
-A mock tech support ticket system. 
+A mock tech support ticket system using NextJS and Prisma.
