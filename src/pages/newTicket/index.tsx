@@ -1,74 +1,64 @@
 import { useState } from "react";
-import { useUser } from "../../../contexts/User/UserContext";
+import { useUser } from "../../shared/contexts/User/UserContext";
+import { Button, Form, Input, Select } from "antd";
 
 const NewTicketForm = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [priority, setPriority] = useState("");
+  const [priority, setPriority] = useState("low");
 
-  const fetchAllTix = async() =>{
-    const res = await fetch('/api/tickets/alltickets', {
-      method: 'GET',
-    })
-    console.log(res.json())
-  }
   const { id } = useUser();
-  console.log('user id on form', {id})
+
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     const body = {
       userId: id,
       title,
       description,
       priority,
     };
-    console.log({body})
-    fetchAllTix()
-    const data = await fetch("/api/tickets/newticket", {
+    console.log({ body });
+
+    // should abstract away to api utils
+    await fetch("/api/tickets/newticket", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
-    console.log({data})
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="title">Title:</label>
-        <input
-          type="text"
-          id="title"
+    <Form layout="vertical">
+      <Form.Item label="Title">
+        <Input
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           required
         />
-      </div>
-      <div>
-        <label htmlFor="description">Description:</label>
-        <textarea
-          id="description"
+      </Form.Item>
+      <Form.Item label="Description">
+        <Input.TextArea
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           required
         />
-      </div>
-      <div>
-        <label htmlFor="priority">Priority:</label>
-        <select
-          id="priority"
+      </Form.Item>
+      <Form.Item label="Priority">
+        <Select
           value={priority}
-          onChange={(e) => setPriority(e.target.value)}
-          required
-        >
-          <option value="">Select Priority</option>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-        </select>
-      </div>
-      <button onClick={handleSubmit}>Submit</button>
-    </form>
+          options={[
+            { value: "high", label: "High" },
+            { value: "medium", label: "Medium" },
+            { value: "low", label: "Low" },
+          ]}
+          onChange={(value) => setPriority(value)}
+          defaultValue="low"
+        />
+      </Form.Item>
+      <Button type="primary" onClick={handleSubmit}>
+        Submit Ticket
+      </Button>
+    </Form>
   );
 };
 

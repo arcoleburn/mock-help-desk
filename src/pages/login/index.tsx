@@ -1,21 +1,15 @@
-import React, { useState } from "react";
-import { useUser } from "../../../contexts/User/UserContext";
+import React, { useEffect, useState } from "react";
+import { useUser } from "../../shared/contexts/User/UserContext";
 import { useRouter } from "next/router";
-import { Alert, Button, Form, Input } from "antd";
+import { Alert, Button, Form, Input, Space } from "antd";
+import Link from "next/link";
 
 const LoginPage: React.FC = () => {
   const [username, setUserName] = useState("");
   const [pw, setPw] = useState("");
   const [error, setError] = useState(null);
-  const { login } = useUser();
+  const { login, isLoggedIn } = useUser();
   const router = useRouter();
-  const handleUserInput = (input) => {
-    setUserName(input);
-  };
-
-  const handlePwInput = (input) => {
-    setPw(input);
-  };
 
   const handleLogin = async () => {
     const body = { name: username, password: pw };
@@ -25,7 +19,6 @@ const LoginPage: React.FC = () => {
       body: JSON.stringify(body),
     });
     const data = await res.json();
-    console.log({ data });
     if (res.status === 200) {
       login(data.id, data.name, data.isAdmin);
       router.push("/");
@@ -33,6 +26,12 @@ const LoginPage: React.FC = () => {
       setError(data.error);
     }
   };
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/");
+    }
+  });
 
   return (
     <div>
@@ -50,40 +49,34 @@ const LoginPage: React.FC = () => {
           <Input.Password value={pw} onChange={(e) => setPw(e.target.value)} />
         </Form.Item>
         <Form.Item>
-          <Button type="primary" onClick={handleLogin}>Login</Button>
+          <Space>
+            <Button type="primary" onClick={handleLogin}>
+              Login
+            </Button>
+            <Link href="/register">Register</Link>
+          </Space>
         </Form.Item>
       </Form>
+      <Button
+        type="text"
+        onClick={() => {
+          setUserName("Admin1");
+          setPw("pass");
+        }}
+      >
+        Admin Demo
+      </Button>
+      <Button
+        type="text"
+        onClick={() => {
+          setUserName("Bob");
+          setPw("pass");
+        }}
+      >
+        User Demo
+      </Button>
     </div>
   );
 };
 
 export default LoginPage;
-
-{
-  /* <div>
-<h2>Login</h2>
-<div>
-  <label htmlFor="email">Email:</label>
-  <input
-    type="email"
-    id="email"
-    name="email"
-    required
-    onChange={(e) => handleUserInput(e.target.value)}
-  />
-</div>
-<div>
-  <label htmlFor="password">Password:</label>
-  <input
-    type="password"
-    id="password"
-    name="password"
-    required
-    onChange={(e) => handlePwInput(e.target.value)}
-  />
-</div>
-<button type="button" onClick={handleLogin}>
-  Login
-</button>
-</div> */
-}

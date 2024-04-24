@@ -1,10 +1,13 @@
 import { AppProps } from "next/app";
-import { UserProvider } from "../../contexts/User/UserContext";
+import { UserProvider } from "../shared/contexts/User/UserContext";
+import Layout from "../shared/components/Layout";
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <UserProvider>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </UserProvider>
   );
 };

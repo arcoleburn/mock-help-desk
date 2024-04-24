@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useUser } from "../../../contexts/User/UserContext";
-import { Router, useRouter } from "next/router";
+import { useUser } from "../../shared/contexts/User/UserContext";
+import { useRouter } from "next/router";
+import { Button, Form, Input, Select } from "antd";
 
 const Register: React.FC = () => {
   const [userName, setUserName] = useState("");
@@ -8,8 +9,8 @@ const Register: React.FC = () => {
   const [email, setEmail] = useState("");
   const [isAdmin, setIsAdmin] = useState(false);
 
-  const router = useRouter()
-  const {login} = useUser();
+  const router = useRouter();
+  const { login } = useUser();
 
   const handleName = (input) => {
     setUserName(input);
@@ -30,68 +31,48 @@ const Register: React.FC = () => {
     const body = { userName, email, password, isAdmin };
 
     try {
-     const res = await fetch("/api/register", {
+      // abstract to api utils
+      const res = await fetch("/api/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
       });
-      const data = await res.json()
-      if(res.status===200){
-        login(data.id, data.name, data.isAdmin)
-        router.push('/')
+      const data = await res.json();
+      if (res.status === 200) {
+        login(data.id, data.name, data.isAdmin);
+        router.push("/");
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
   return (
     <div>
       <h2>User Registration</h2>
-      <div>
-        <label htmlFor="name">Name:</label>
-        <input
-          type="text"
-          id="name"
-          name="name"
-          required
-          onChange={(e) => handleName(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          required
-          onChange={(e) => handleEmail(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          required
-          onChange={(e) => handlePass(e.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="role">Role:</label>
-        <select
-          id="role"
-          name="role"
-          required
-          onChange={(e) => setIsAdmin(e.target.value === "admin")}
-        >
-          <option value=""></option>
-          <option value="admin">Admin</option>
-          <option value="general">General</option>
-        </select>
-      </div>
-      <button type="button" onClick={handleRegister}>Register</button>
+      <Form layout="vertical">
+        <Form.Item label="Name">
+          <Input value={userName} onChange={(e)=>handleName(e.target.value)} />
+        </Form.Item>
+        <Form.Item label="Email">
+          <Input value={email} onChange={(e) => handleEmail(e.target.value)} />
+        </Form.Item>
+        <Form.Item label="Password">
+          <Input.Password
+            value={password}
+            onChange={(e) => handlePass(e.target.value)}
+          />
+        </Form.Item>
+        <Form.Item label="Role">
+          <Select onChange={(value)=>handleAdmin(value==="admin")} >
+            <Select.Option value="admin">Admin</Select.Option>
+            <Select.Option value="general" selected>General</Select.Option>
+          </Select>
+        </Form.Item>
+        <Button type="primary" onClick={handleRegister}>
+          Register
+        </Button>
+      </Form>
     </div>
   );
 };
