@@ -9,7 +9,7 @@ const TicketPage = () => {
   const [newStatus, setNewStatus] = useState("");
   const [response, setResponse] = useState("");
   const [alert, setAlert] = useState({ error: null, message: "" });
-  
+
   const router = useRouter();
   const { username, id: userId, isAdmin, isLoggedIn } = useUser();
   const { id } = router.query;
@@ -62,7 +62,6 @@ const TicketPage = () => {
     const update = await updateTicket({
       ...ticket,
       status: newStatus,
-      ick: userId,
     });
     setAlert(
       update.error
@@ -78,6 +77,10 @@ const TicketPage = () => {
       responder: username,
       response,
     });
+    if (!update.error) {
+      setResponse("");
+      setNewStatus("");
+    }
   };
 
   if (!ticket) {
@@ -134,12 +137,14 @@ const TicketPage = () => {
           ) : null}
           <Form.Item label="Response" required>
             <TextArea
+              value={response}
               onChange={(e) => handleResponseEdit(e.target.value)}
               rows={6}
             />
           </Form.Item>
           <Form.Item label="Update Status" required>
             <Select
+              value={newStatus}
               defaultValue={ticket.status}
               onChange={(value) => setNewStatus(value)}
               options={[

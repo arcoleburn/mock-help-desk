@@ -31,5 +31,7 @@ export default async function handle(req, res) {
     return res.json(ticket);
   } catch (error) {
     res.status(500).json({ error: error });
+  } finally {
+    await prisma.$disconnect(); 
   }
 }

@@ -12,6 +12,8 @@ const getUserInfo = async (name) => {
       email: true,
     },
   });
+  await prisma.$disconnect();
+
   return user;
 };
 
@@ -21,6 +23,7 @@ const doesUsernameExist = async (name: string): Promise<boolean> => {
       name,
     },
   });
+  await prisma.$disconnect();
 
   return !!user; // Returns true if user exists, false otherwise
 };
@@ -29,19 +32,19 @@ const doesPasswordMatch = async (
   name: string,
   password: string
 ): Promise<boolean> => {
-  // Find the user by username
   const user = await prisma.user.findFirst({
     where: {
       name,
     },
   });
+  await prisma.$disconnect();
 
   // If user not found or password doesn't match, return false
   if (!user || user.password !== password) {
+
     return false;
   }
 
-  // Password matches
   return true;
 };
 
@@ -54,6 +57,8 @@ const addNewTicket = async (id, title, description, priority) => {
       priority,
     }
   })
+  await prisma.$disconnect();
+
 return res
 };
 export { getUserInfo, doesPasswordMatch, doesUsernameExist, addNewTicket };

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUser } from "../../shared/contexts/User/UserContext";
 import { Button, Form, Input, Select } from "antd";
+import { useRouter } from "next/router";
 
 const NewTicketForm = () => {
   const [title, setTitle] = useState("");
@@ -8,7 +9,7 @@ const NewTicketForm = () => {
   const [priority, setPriority] = useState("low");
 
   const { id } = useUser();
-
+  const router = useRouter()
   const handleSubmit = async (e) => {
     e.preventDefault();
     const body = {
@@ -20,11 +21,17 @@ const NewTicketForm = () => {
     console.log({ body });
 
     // should abstract away to api utils
-    await fetch("/api/tickets/newticket", {
+   const res = await fetch("/api/tickets/newticket", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
+if(res.ok){
+  setTitle("")
+  setDescription("")
+  setPriority("low")
+  router.push('/')
+}
   };
 
   return (
